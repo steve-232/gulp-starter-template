@@ -1,0 +1,18 @@
+$white: #fff;
+$black: #000;
+
+$fontPath: '../fonts/';
+$imgPath: '../imgs/';
+
+$linear160: ' 160ms linear 10ms';
+$linear140: ' 140ms linear';
+$easeOut180: ' 180ms ease-out';
+
+@mixin clearfix(){
+	&:after,
+	&:before {
+    content: "";
+    display: block;
+    clear: both;
+	}
+}

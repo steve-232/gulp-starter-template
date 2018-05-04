@@ -1,0 +1,35 @@
+{
+  "name": "gulp-starter-template",
+  "version": "1.0.0",
+  "description": "Gulp starter template",
+  "scripts": {
+    "dev": "NODE_ENV=dev gulp",
+    "dev:win": "set NODE_ENV=dev&gulp",
+    "prod": "NODE_ENV=production gulp",
+    "prod:win": "set NODE_ENV=production&gulp"
+  },
+  "author": {
+    "name": "steve-232",
+    "email": "steve232np@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/steve-232/gulp-starter-template"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^3.0.0",
+    "jquery-countdown": "^2.2.0"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}

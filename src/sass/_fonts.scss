@@ -1,0 +1,9 @@
+
+// Fonts
+// -------------------------
+@font-face {
+  font-family: 'NameOfTheFont';
+  src: url($fontPath+'NameOfTheFont.woff2') format('woff2'),
+     url($fontPath+'NameOfTheFont.woff') format('woff'),
+     url($fontPath+'NameOfTheFont.ttf') format('truetype');
+}
