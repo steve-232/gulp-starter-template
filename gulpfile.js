@@ -34,7 +34,6 @@ const {
   function watchFiles() {
     scss();
     js();
-    // parallel(scss, js);
     watch('src/scss/*.scss', scss);
     watch('src/js/*.js', js);
   }
