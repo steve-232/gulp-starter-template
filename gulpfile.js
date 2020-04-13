@@ -22,7 +22,8 @@ function scss() {
 function js() {
   return src('src/js/*.js')
     .pipe(babel({
-      presets: ['@babel/env']
+      presets: ['@babel/env'],
+      plugins: ["@babel/plugin-proposal-class-properties"]
     }))
     .pipe(uglify({
       output: { beautify: !isProduction },
