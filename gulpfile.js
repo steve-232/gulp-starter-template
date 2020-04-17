@@ -14,7 +14,8 @@ function scss() {
   return src('src/scss/*.scss')
     .pipe(sass({
       includePaths: sassPaths,
-      outputStyle: isProduction ? 'compressed' : 'expanded' })
+      outputStyle: isProduction ? 'compressed' : 'expanded',
+    })
       .on('error', sass.logError))
     .pipe(dest('prod/css'));
 }
@@ -23,7 +24,7 @@ function js() {
   return src('src/js/*.js')
     .pipe(babel({
       presets: ['@babel/env'],
-      plugins: ["@babel/plugin-proposal-class-properties"]
+      plugins: ['@babel/plugin-proposal-class-properties'],
     }))
     .pipe(uglify({
       output: { beautify: !isProduction },
@@ -37,8 +38,8 @@ function server() {
   return src('prod')
     .pipe(webserver({
       open: true,
-      livereload: true
-    }))
+      livereload: true,
+    }));
 }
 
 function watchFiles() {
