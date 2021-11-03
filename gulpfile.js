@@ -6,6 +6,7 @@ const sass = require('gulp-sass')(require('node-sass'));
 const babel = require('gulp-babel');
 const webserver = require('gulp-webserver');
 const ts = require('gulp-typescript');
+const livereload = require('gulp-livereload');
 
 const env = process.env.NODE_ENV;
 const isProduction = env === 'production';
@@ -18,7 +19,8 @@ function scss() {
       outputStyle: isProduction ? 'compressed' : 'expanded',
     })
       .on('error', sass.logError))
-    .pipe(dest('prod/css'));
+    .pipe(dest('prod/css'))
+    .pipe(livereload());;
 }
 
 function js() {
@@ -32,7 +34,8 @@ function js() {
       compress: isProduction,
       mangle: isProduction,
     }))
-    .pipe(dest('prod/js'));
+    .pipe(dest('prod/js'))
+    .pipe(livereload());
 }
 
 function typescript() {
@@ -40,7 +43,8 @@ function typescript() {
     .pipe(ts({
         noImplicitAny: true,
     }))
-    .pipe(dest('prod'));
+    .pipe(dest('prod'))
+   .pipe(livereload());
 };
 
 function server() {
