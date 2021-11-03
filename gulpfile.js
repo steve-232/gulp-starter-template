@@ -2,9 +2,10 @@ const {
   src, dest, parallel, watch,
 } = require('gulp');
 const uglify = require('gulp-uglify');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('node-sass'));
 const babel = require('gulp-babel');
 const webserver = require('gulp-webserver');
+const ts = require('gulp-typescript');
 
 const env = process.env.NODE_ENV;
 const isProduction = env === 'production';
@@ -34,6 +35,14 @@ function js() {
     .pipe(dest('prod/js'));
 }
 
+function typescript() {
+  return src('src/**/*.ts')
+    .pipe(ts({
+        noImplicitAny: true,
+    }))
+    .pipe(dest('prod'));
+};
+
 function server() {
   return src('prod')
     .pipe(webserver({
@@ -45,8 +54,10 @@ function server() {
 function watchFiles() {
   scss();
   js();
+  typescript()
   watch('src/scss/*.scss', scss);
   watch('src/js/*.js', js);
+  watch('src/js/*.ts', typescript);
 }
 
 if (!isProduction) server();
@@ -54,4 +65,6 @@ if (!isProduction) server();
 exports.server = server;
 exports.scss = scss;
 exports.js = js;
-exports.default = env === 'dev' ? watchFiles : parallel(scss, js);
+exports.ts = typescript;
+
+exports.default = env === 'dev' ? watchFiles : parallel(scss, js, typescript);
