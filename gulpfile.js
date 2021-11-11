@@ -6,7 +6,8 @@ const sass = require('gulp-sass')(require('node-sass'));
 const babel = require('gulp-babel');
 const webserver = require('gulp-webserver');
 const ts = require('gulp-typescript');
-const livereload = require('gulp-livereload');
+
+const tsProject = ts.createProject('tsconfig.json');
 
 const env = process.env.NODE_ENV;
 const isProduction = env === 'production';
@@ -19,8 +20,7 @@ function scss() {
       outputStyle: isProduction ? 'compressed' : 'expanded',
     })
       .on('error', sass.logError))
-    .pipe(dest('prod/css'))
-    .pipe(livereload());;
+    .pipe(dest('prod/css'));
 }
 
 function js() {
@@ -34,18 +34,14 @@ function js() {
       compress: isProduction,
       mangle: isProduction,
     }))
-    .pipe(dest('prod/js'))
-    .pipe(livereload());
+    .pipe(dest('prod/js'));
 }
 
 function typescript() {
-  return src('src/**/*.ts')
-    .pipe(ts({
-        noImplicitAny: true,
-    }))
-    .pipe(dest('prod'))
-   .pipe(livereload());
-};
+  return src('src/ts/*.ts')
+    .pipe(tsProject())
+    .pipe(dest('prod/js'));
+}
 
 function server() {
   return src('prod')
@@ -58,13 +54,13 @@ function server() {
 function watchFiles() {
   scss();
   js();
-  typescript()
+  typescript();
   watch('src/scss/*.scss', scss);
   watch('src/js/*.js', js);
-  watch('src/js/*.ts', typescript);
+  watch('src/ts/*.ts', typescript);
 }
 
-if (!isProduction) server();
+if (env === 'dev') server();
 
 exports.server = server;
 exports.scss = scss;

@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "NODE_ENV=dev gulp",
     "dev:win": "set NODE_ENV=dev&gulp",
+    "stage": "set NODE_ENV=stage&gulp",
+    "stage:win": "set NODE_ENV=stage&gulp",
     "prod": "NODE_ENV=production gulp",
     "prod:win": "set NODE_ENV=production&gulp"
   },
@@ -29,7 +31,6 @@
     "eslint-plugin-import": "^2.25.2",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
-    "gulp-livereload": "^4.0.2",
     "gulp-sass": "^5.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-webserver": "^0.9.1",
