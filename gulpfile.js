@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const {
   src, dest, parallel, watch,
 } = require('gulp');
@@ -6,12 +7,16 @@ const sass = require('gulp-sass')(require('node-sass'));
 const babel = require('gulp-babel');
 const webserver = require('gulp-webserver');
 const ts = require('gulp-typescript');
+const rename = require('gulp-rename');
 
 const tsProject = ts.createProject('tsconfig.json');
 
 const env = process.env.NODE_ENV;
 const isProduction = env === 'production';
 const sassPaths = ['src/scss/'];
+let minified = '';
+
+if (isProduction) minified = '.min';
 
 function scss() {
   return src('src/scss/*.scss')
@@ -20,6 +25,8 @@ function scss() {
       outputStyle: isProduction ? 'compressed' : 'expanded',
     })
       .on('error', sass.logError))
+    // possible option
+    // .pipe(rename(`index${minified}.css`))
     .pipe(dest('prod/css'));
 }
 
@@ -34,12 +41,21 @@ function js() {
       compress: isProduction,
       mangle: isProduction,
     }))
+    // possible option
+    // .pipe(rename(`index${minified}.js`))
     .pipe(dest('prod/js'));
 }
 
 function typescript() {
   return src('src/ts/*.ts')
     .pipe(tsProject())
+    .pipe(uglify({
+      output: { beautify: !isProduction },
+      compress: isProduction,
+      mangle: isProduction,
+    }))
+    // possible option
+    // .pipe(rename(`index${minified}.js`))
     .pipe(dest('prod/js'));
 }
 
